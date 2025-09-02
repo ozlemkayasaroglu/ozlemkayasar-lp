@@ -326,6 +326,89 @@ const Projects: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
                     </div>
                   );
                 }
+                // Podcast kartı için embed
+                if (item.title === "Yapay Zeka ve...") {
+                  return (
+                    <div
+                      key={idx}
+                      className="rounded-xl p-6 flex flex-col h-full transition-transform duration-300 hover:-translate-y-1 cursor-pointer border"
+                      style={{
+                        background: earthPastel.bg,
+                        color: earthPastel.text,
+                        borderColor: earthPastel.border,
+                      }}
+                      onMouseEnter={(e) =>
+                        (e.currentTarget.style.background = earthPastel.hover)
+                      }
+                      onMouseLeave={(e) =>
+                        (e.currentTarget.style.background = earthPastel.bg)
+                      }
+                    >
+                      <h4
+                        className="text-lg md:text-xl font-bold mb-1 leading-snug"
+                        style={{ color: earthPastel.text2 }}
+                      >
+                        {item.link ? (
+                          <a
+                            href={item.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="hover:underline"
+                            style={{ color: earthPastel.text2 }}
+                          >
+                            {item.title}
+                          </a>
+                        ) : (
+                          item.title
+                        )}
+                        {item.status && (
+                          <span
+                            className="ml-2 text-xs font-medium"
+                            style={{ color: earthPastel.text2 }}
+                          >
+                            {item.status}
+                          </span>
+                        )}
+                      </h4>
+                      <p
+                        className="text-sm md:text-base font-light mb-1 leading-relaxed"
+                        style={{ color: earthPastel.text2 }}
+                      >
+                        {item.description}
+                      </p>
+                      {item.approach && (
+                        <p
+                          className="text-xs md:text-sm mt-1 font-normal"
+                          style={{ color: earthPastel.text2 }}
+                        >
+                          Yaklaşım: {item.approach}
+                        </p>
+                      )}
+                      {item.platforms && (
+                        <p
+                          className="text-xs md:text-sm mt-1 font-normal"
+                          style={{ color: earthPastel.text2 }}
+                        >
+                          Platformlar: {item.platforms.join(", ")}
+                        </p>
+                      )}
+                      {/* Spotify embed */}
+                      <div className="mt-4">
+                        <iframe
+                          data-testid="embed-iframe"
+                          style={{ borderRadius: "12px" }}
+                          src="https://open.spotify.com/embed/episode/5N7CA9ULervQCfOXueBl7h?utm_source=generator&theme=0"
+                          width="100%"
+                          height="152"
+                          frameBorder="0"
+                          allowFullScreen={true}
+                          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                          loading="lazy"
+                        ></iframe>
+                      </div>
+                    </div>
+                  );
+                }
                 // Diğer kartlar
                 return (
                   <div

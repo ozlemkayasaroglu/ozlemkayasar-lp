@@ -20,6 +20,7 @@ const conferences = [
   {
     title: "Nitelik Noktası: Dijital Girişimcilik ve Yazılım Ekosistemi",
     type: "Panelist",
+    link: "https://www.youtube.com/watch?v=G2An1Y9PcuI&t=1s",
     role: "Yapay Zeka İçerik Üreticisi",
     topic:
       "Yapay zekanın içerik üretimi ve medya sektörüne etkileri üzerine konuştuk. Özellikle AI ile çalışmanın etik sınırları, orijinallik ve telif hakları konularında görüşlerimi paylaşarakdinleyicilerle tartıştım.",
@@ -30,6 +31,7 @@ const conferences = [
   {
     title: "React Konf (Bursa Bilişim Topluluğu)",
     type: "Konuşmacı",
+    link: "https://www.instagram.com/reel/C9sHogStHhc/",
     role: "Konuşmacı",
     topic:
       '"State Machine" başlıklı bir sunum gerçekleştirdim. Karmaşık bileşen durumlarını yönetmek için state machine konseptinin nasıl kullanılabileceğini, pratik örneklerle anlattım.',
@@ -55,7 +57,7 @@ const Conferences: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
         }}
       >
         <h2
-          className="text-3xl md:text-4xl font-extrabold mb-4 flex items-center gap-2 tracking-tight"
+          className="text-xl md:text-4xl font-extrabold mb-4 flex items-center gap-2 tracking-tight "
           style={{ color: earthPastel.text2 }}
         >
           <span role="img" aria-label="mic">
@@ -91,7 +93,19 @@ const Conferences: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
                 className="text-lg md:text-xl font-bold mb-1 leading-snug"
                 style={{ color: earthPastel.text2 }}
               >
-                {event.title}
+                {event.link ? (
+                  <a
+                    href={event.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:underline"
+                    style={{ color: earthPastel.text2 }}
+                  >
+                    {event.title}
+                  </a>
+                ) : (
+                  event.title
+                )}
               </h4>
               <p
                 className="text-sm md:text-base font-light mb-1 leading-relaxed"
