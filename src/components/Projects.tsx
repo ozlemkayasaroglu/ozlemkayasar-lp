@@ -147,13 +147,18 @@ const categoryTabs = [
   },
 ];
 
-const mainColor = "#a98abbff"; // eski mor (pastel/earth ton)
-const accentPink = "#ffe1ec76"; // eski pembe (pastel/earth ton)
-const accentBlue = "#c7e5ff96"; // eski mavi (pastel/earth ton)
-const lightBlue = "#c6aed49b"; // eski lightBlue (pastel/earth ton)
-const bgColor = "#fff"; // beyaz arka plan
+const earthPastel = {
+  bg: "#ffffff51", // pastel açık toprak
+  border: "#918377ff", // pastel toprak
+  text: "#7d6e57",
+  text2: "#5b5449ff", // açık pastel koyu toprak
+  accent: "#8cc887ff", // pastel yeşil
+  highlight: "#e7cba9", // pastel sarımsı toprak
+  leaf: "#a3c9a8", // pastel yaprak yeşili
+  hover: "#98d1a052",
+};
 
-const Projects: React.FC = () => {
+const Projects: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
   const [activeTab, setActiveTab] = useState(categoryTabs[0].key);
   const activeSection = projects.find(
     (section) => section.category === activeTab
@@ -162,18 +167,18 @@ const Projects: React.FC = () => {
   return (
     <section
       className="py-2 px-4 max-w-4xl mx-auto"
-      style={{ background: bgColor }}
+      style={{ background: earthPastel.bg }}
     >
       <div
-        className="rounded-2xl p-10"
+        className="rounded-sm p-10"
         style={{
-          background: bgColor,
-          boxShadow: `0 4px 32px 0 ${lightBlue}22`,
+          background: earthPastel.bg,
+          borderTop: `1.5px solid ${earthPastel.border}`,
         }}
       >
         <h2
-          className="text-3xl md:text-4xl font-extrabold mb-4 flex items-center gap-2 tracking-tight"
-          style={{ color: mainColor }}
+          className="text-xl md:text-4xl font-extrabold mb-4 flex items-center gap-2 tracking-tight"
+          style={{ color: earthPastel.text2 }}
         >
           <span role="img" aria-label="rocket">
             🚀
@@ -182,7 +187,7 @@ const Projects: React.FC = () => {
         </h2>
         <p
           className="mb-5 text-base md:text-md font-base leading-relaxed"
-          style={{ color: mainColor }}
+          style={{ color: earthPastel.text2 }}
         >
           Yolculuğum boyunca, hem eğlenmek hem de öğrenmek için bir dizi proje
           üzerinde çalıştım. İşte beni ve becerilerimi yansıtan bazı
@@ -190,7 +195,7 @@ const Projects: React.FC = () => {
         </p>
         <div
           className="flex flex-nowrap gap-2 mb-10 justify-center overflow-x-auto scrollbar-thin"
-          style={{ scrollbarColor: `${lightBlue} ${bgColor}` }}
+          style={{ scrollbarColor: `${earthPastel.leaf} ${earthPastel.bg}` }}
         >
           {categoryTabs.map((tab) => (
             <button
@@ -200,287 +205,122 @@ const Projects: React.FC = () => {
               style={
                 activeTab === tab.key
                   ? {
-                      background: mainColor,
-                      borderColor: mainColor,
+                      background: earthPastel.leaf,
+                      borderColor: earthPastel.leaf,
                       color: "#fff",
                     }
                   : {
-                      background: accentPink,
-                      borderColor: mainColor,
-                      color: mainColor,
+                      background: earthPastel.bg,
+                      borderColor: earthPastel.leaf,
+                      color: earthPastel.text2,
                     }
               }
+              onMouseEnter={(e) => {
+                if (!activeTab || tab.key !== activeTab) {
+                  e.currentTarget.style.background = earthPastel.hover;
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (!activeTab || tab.key !== activeTab) {
+                  e.currentTarget.style.background = earthPastel.bg;
+                }
+              }}
             >
               {tab.label}
             </button>
           ))}
         </div>
         {activeSection && (
-          <div className="mb-4 animate-fade-in">
-            {/* Kategori başlığı ve ikonları kaldırıldı */}
-            {activeSection.category === "Web Uygulamaları" ||
-            activeSection.category === "Mobil Uygulamalar" ||
-            activeSection.category === "Makale & Blog Yazıları" ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {activeSection.items.map((item, idx) => (
-                  <div
-                    key={idx}
-                    className="rounded-xl shadow p-6 flex flex-col h-full transition-transform duration-300 hover:-translate-y-1 hover:shadow-2xl cursor-pointer border border-transparent"
-                    style={{
-                      background: accentPink,
-                      color: mainColor,
-                      borderColor: mainColor,
-                    }}
+          <div
+            className="mb-4 animate-fade-in"
+            style={{
+              animation: "fadeInUp 0.6s cubic-bezier(0.23, 1, 0.32, 1)",
+            }}
+          >
+            <style>{`
+              @keyframes fadeInUp {
+                0% { opacity: 0; transform: translateY(30px); }
+                100% { opacity: 1; transform: translateY(0); }
+              }
+            `}</style>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {activeSection.items.map((item, idx) => (
+                <div
+                  key={idx}
+                  className="rounded-xl p-6 flex flex-col h-full transition-transform duration-300 hover:-translate-y-1 cursor-pointer border"
+                  style={{
+                    background: earthPastel.bg,
+                    color: earthPastel.text,
+                    borderColor: earthPastel.border,
+                  }}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.background = earthPastel.hover)
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.background = earthPastel.bg)
+                  }
+                >
+                  <h4
+                    className="text-lg md:text-xl font-bold mb-1 leading-snug"
+                    style={{ color: earthPastel.text2 }}
                   >
-                    <h4
-                      className="text-lg md:text-xl font-bold mb-1 leading-snug"
-                      style={{ color: mainColor }}
-                    >
-                      {item.link ? (
-                        <a
-                          href={item.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="hover:underline"
-                          style={{ color: mainColor }}
-                        >
-                          {item.title}
-                        </a>
-                      ) : (
-                        item.title
-                      )}
-                      {item.status && (
-                        <span
-                          className="ml-2 text-xs font-medium"
-                          style={{ color: mainColor }}
-                        >
-                          {item.status}
-                        </span>
-                      )}
-                    </h4>
+                    {item.link ? (
+                      <a
+                        href={item.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:underline"
+                        style={{ color: earthPastel.text2 }}
+                      >
+                        {item.title}
+                      </a>
+                    ) : (
+                      item.title
+                    )}
+                    {item.status && (
+                      <span
+                        className="ml-2 text-xs font-medium"
+                        style={{ color: earthPastel.text2 }}
+                      >
+                        {item.status}
+                      </span>
+                    )}
+                  </h4>
+                  <p
+                    className="text-sm md:text-base font-light mb-1 leading-relaxed"
+                    style={{ color: earthPastel.text2 }}
+                  >
+                    {item.description}
+                  </p>
+                  {item.approach && (
                     <p
-                      className="text-sm md:text-base font-light mb-1 leading-relaxed"
-                      style={{ color: mainColor }}
+                      className="text-xs md:text-sm mt-1 font-normal"
+                      style={{ color: earthPastel.text2 }}
                     >
-                      {item.description}
+                      Yaklaşım: {item.approach}
                     </p>
-                  </div>
-                ))}
-              </div>
-            ) : activeSection.category === "YouTube & Topluluk Katkıları" ? (
-              <div className="w-full">
-                {activeSection.items.map((item, idx) => (
-                  <div
-                    key={idx}
-                    className="rounded-xl shadow p-6 flex flex-row h-full transition-transform duration-300 hover:-translate-y-1 hover:shadow-2xl cursor-pointer border border-transparent items-start mb-6"
-                    style={{
-                      background: accentPink,
-                      color: mainColor,
-                      borderColor: mainColor,
-                    }}
-                  >
-                    {item.image && (
+                  )}
+                  {item.platforms && (
+                    <p
+                      className="text-xs md:text-sm mt-1 font-normal"
+                      style={{ color: earthPastel.text2 }}
+                    >
+                      Platformlar: {item.platforms.join(", ")}
+                    </p>
+                  )}
+                  {item.image && (
+                    <div className="mt-4">
                       <img
                         src={item.image}
                         alt={item.title}
-                        className="w-48 h-48 object-cover rounded-md mr-4 mt-1 flex-shrink-0"
+                        className="rounded-lg w-full"
+                        style={{ border: `1.5px solid ${earthPastel.leaf}` }}
                       />
-                    )}
-                    <div className="flex-1 min-w-0">
-                      <h4
-                        className="text-lg md:text-xl font-bold mb-1 leading-snug"
-                        style={{ color: mainColor }}
-                      >
-                        {item.link ? (
-                          <a
-                            href={item.link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="hover:underline"
-                            style={{ color: mainColor }}
-                          >
-                            {item.title}
-                          </a>
-                        ) : (
-                          item.title
-                        )}
-                        {item.status && (
-                          <span
-                            className="ml-2 text-xs font-medium"
-                            style={{ color: accentPink }}
-                          >
-                            {item.status}
-                          </span>
-                        )}
-                      </h4>
-                      <p
-                        className="text-sm md:text-base font-light mb-1 leading-relaxed"
-                        style={{ color: mainColor }}
-                      >
-                        {item.description}
-                      </p>
-                      {item.approach && (
-                        <p
-                          className="text-xs md:text-sm mt-1 font-normal"
-                          style={{ color: mainColor }}
-                        >
-                          Yaklaşım: {item.approach}
-                        </p>
-                      )}
-                      {item.platforms && (
-                        <p
-                          className="text-xs md:text-sm mt-1 font-normal"
-                          style={{ color: mainColor }}
-                        >
-                          Platformlar: {item.platforms.join(", ")}
-                        </p>
-                      )}
                     </div>
-                  </div>
-                ))}
-              </div>
-            ) : activeSection.category === "Podcast & İçerik Üretimi" ? (
-              <div className="w-full">
-                {activeSection.items.map((item, idx) => (
-                  <div
-                    key={idx}
-                    className="rounded-xl shadow p-6 flex flex-col h-full transition-transform duration-300 hover:-translate-y-1 hover:shadow-2xl cursor-pointer border border-transparent mb-6"
-                    style={{
-                      background: accentPink,
-                      color: mainColor,
-                      borderColor: mainColor,
-                    }}
-                  >
-                    <h4
-                      className="text-lg md:text-xl font-bold mb-1 leading-snug"
-                      style={{ color: mainColor }}
-                    >
-                      {item.link ? (
-                        <a
-                          href={item.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="hover:underline"
-                          style={{ color: mainColor }}
-                        >
-                          {item.title}
-                        </a>
-                      ) : (
-                        item.title
-                      )}
-                      {item.status && (
-                        <span
-                          className="ml-2 text-xs font-medium"
-                          style={{ color: accentPink }}
-                        >
-                          {item.status}
-                        </span>
-                      )}
-                    </h4>
-                    <p
-                      className="text-sm md:text-base font-light mb-1 leading-relaxed"
-                      style={{ color: mainColor }}
-                    >
-                      {item.description}
-                    </p>
-                    {item.approach && (
-                      <p
-                        className="text-xs md:text-sm mt-1 font-normal"
-                        style={{ color: mainColor }}
-                      >
-                        Yaklaşım: {item.approach}
-                      </p>
-                    )}
-                    {item.platforms && (
-                      <p
-                        className="text-xs md:text-sm mt-1 font-normal"
-                        style={{ color: mainColor }}
-                      >
-                        Platformlar: {item.platforms.join(", ")}
-                      </p>
-                    )}
-                    {/* Spotify embed ve CTA */}
-                    <div className="mt-4">
-                      <iframe
-                        style={{ borderRadius: "12px" }}
-                        src="https://open.spotify.com/embed/episode/5N7CA9ULervQCfOXueBl7h?utm_source=generator"
-                        width="100%"
-                        height="200"
-                        frameBorder="0"
-                        allowFullScreen
-                        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                        loading="lazy"
-                        title="Spotify Podcast Bölümü"
-                      ></iframe>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <ul className="space-y-6">
-                {activeSection.items.map((item, idx) => (
-                  <li
-                    key={idx}
-                    className="rounded-xl shadow p-6 transition-transform duration-300 hover:-translate-y-1 hover:shadow-2xl cursor-pointer border border-transparent"
-                    style={{
-                      background: accentPink,
-                      color: mainColor,
-                      borderColor: mainColor,
-                    }}
-                  >
-                    <h4
-                      className="text-lg md:text-xl font-bold mb-1 leading-snug"
-                      style={{ color: mainColor }}
-                    >
-                      {item.link ? (
-                        <a
-                          href={item.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="hover:underline"
-                          style={{ color: mainColor }}
-                        >
-                          {item.title}
-                        </a>
-                      ) : (
-                        item.title
-                      )}
-                    </h4>
-                    <p
-                      className="text-sm md:text-base font-light mb-1 leading-relaxed"
-                      style={{ color: mainColor }}
-                    >
-                      {item.description}
-                    </p>
-                    {item.approach && (
-                      <p
-                        className="text-xs md:text-sm mt-1 font-normal"
-                        style={{ color: mainColor }}
-                      >
-                        Yaklaşım: {item.approach}
-                      </p>
-                    )}
-                    {item.platforms && (
-                      <p
-                        className="text-xs md:text-sm mt-1 font-normal"
-                        style={{ color: mainColor }}
-                      >
-                        Platformlar: {item.platforms.join(", ")}
-                      </p>
-                    )}
-                    {item.image && ( // Görselin gösterileceği yer
-                      <div className="mt-4">
-                        <img
-                          src={item.image}
-                          alt={item.title}
-                          className="rounded-lg shadow-md w-full"
-                        />
-                      </div>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            )}
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
         )}
       </div>

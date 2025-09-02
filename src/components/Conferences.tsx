@@ -4,6 +4,17 @@ import nitelik2 from "../assets/nitelik-noktasi-2.jpeg";
 import react1 from "../assets/react-konf-1.jpeg";
 import react2 from "../assets/react-konf-2.jpeg";
 
+const earthPastel = {
+  bg: "#ffffff51", // pastel açık toprak
+  border: "#918377ff", // pastel toprak
+  text: "#7d6e57",
+  text2: "#5b5449ff", // açık pastel koyu toprak
+  accent: "#8cc887ff", // pastel yeşil
+  highlight: "#e7cba9", // pastel sarımsı toprak
+  leaf: "#a3c9a8", // pastel yaprak yeşili
+  hover: "#98d1a052",
+};
+
 // Konferans verisi eklendi
 const conferences = [
   {
@@ -28,18 +39,24 @@ const conferences = [
   },
 ];
 
-const Conferences: React.FC = () => {
+const Conferences: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
   const [modalImg, setModalImg] = useState<string | null>(null);
 
   return (
-    <section className="py-2 px-4 max-w-4xl mx-auto">
+    <section
+      className="py-2 px-4 max-w-4xl mx-auto"
+      style={{ background: earthPastel.bg }}
+    >
       <div
-        className="rounded-2xl p-10 max-w-4xl mx-auto"
-        style={{ background: "#fff" }}
+        className="rounded-sm p-10"
+        style={{
+          background: earthPastel.bg,
+          borderTop: `1.5px solid ${earthPastel.border}`,
+        }}
       >
         <h2
           className="text-3xl md:text-4xl font-extrabold mb-4 flex items-center gap-2 tracking-tight"
-          style={{ color: "#cdb4db" }}
+          style={{ color: earthPastel.text2 }}
         >
           <span role="img" aria-label="mic">
             🎤
@@ -47,8 +64,8 @@ const Conferences: React.FC = () => {
           Konferans & Paneller
         </h2>
         <p
-          className="mb-10 text-base md:text-lg font-light leading-relaxed"
-          style={{ color: "#77a7d1ff" }}
+          className="mb-10 text-base md:text-lg font-light leading-relaxed text-center"
+          style={{ color: earthPastel.text2 }}
         >
           Teknoloji ve girişimcilik ekosistemine olan tutkum, beni sadece kod
           yazmanın ötesine, bu alanlarda deneyimlerimi paylaşmaya itiyor.
@@ -57,41 +74,47 @@ const Conferences: React.FC = () => {
           {conferences.map((event, idx) => (
             <div
               key={idx}
-              className="rounded-xl shadow p-6 flex flex-col h-full transition-transform duration-300 hover:-translate-y-1 hover:shadow-2xl cursor-pointer border border-transparent"
+              className="rounded-xl p-6 flex flex-col h-full transition-transform duration-300 hover:-translate-y-1 cursor-pointer border"
               style={{
-                background: "#9dd1ff30",
-                color: "#a18baeff",
-                borderColor: "#cdb4db",
+                background: earthPastel.bg,
+                color: earthPastel.text,
+                borderColor: earthPastel.border,
               }}
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.background = earthPastel.hover)
+              }
+              onMouseLeave={(e) =>
+                (e.currentTarget.style.background = earthPastel.bg)
+              }
             >
               <h4
                 className="text-lg md:text-xl font-bold mb-1 leading-snug"
-                style={{ color: "#eeadc5ff" }}
+                style={{ color: earthPastel.text2 }}
               >
                 {event.title}
               </h4>
               <p
                 className="text-sm md:text-base font-light mb-1 leading-relaxed"
-                style={{ color: "#5f88aeff" }}
+                style={{ color: earthPastel.text2 }}
               >
                 <span className="font-semibold">Rol:</span> {event.type} /{" "}
                 {event.role}
               </p>
               <p
                 className="text-sm md:text-base font-light mb-1 leading-relaxed"
-                style={{ color: "#5f88aeff" }}
+                style={{ color: earthPastel.text2 }}
               >
                 <span className="font-semibold">Konu:</span> {event.topic}
               </p>
               <p
                 className="text-sm md:text-base font-light mb-1 leading-relaxed"
-                style={{ color: "#5f88aeff" }}
+                style={{ color: earthPastel.text2 }}
               >
                 <span className="font-semibold">Tarih:</span> {event.date}
               </p>
               <p
                 className="text-sm md:text-base font-light leading-relaxed"
-                style={{ color: "#5f88aeff" }}
+                style={{ color: earthPastel.text2 }}
               >
                 <span className="font-semibold">Yer:</span> {event.location}
               </p>
@@ -101,9 +124,9 @@ const Conferences: React.FC = () => {
                     <img
                       key={i}
                       src={img}
-                      alt="Nitelik Noktası Fotoğrafı"
+                      alt="Konferans görseli"
                       className="w-32 h-32 object-cover rounded-lg border cursor-zoom-in transition-transform duration-200 hover:scale-105"
-                      style={{ borderColor: "#cdb4db" }}
+                      style={{ borderColor: earthPastel.leaf }}
                       onClick={() => setModalImg(img)}
                     />
                   ))}
@@ -121,7 +144,7 @@ const Conferences: React.FC = () => {
             <img
               src={modalImg}
               alt="Büyük Fotoğraf"
-              className="max-w-full max-h-[90vh] rounded-2xl shadow-2xl border-4 border-white"
+              className="max-w-full max-h-[90vh] rounded-2xl border-4 border-white"
             />
           </div>
         )}
