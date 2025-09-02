@@ -165,7 +165,7 @@ const Projects: React.FC = () => {
       style={{ background: bgColor }}
     >
       <div
-        className="rounded-2xl shadow-lg p-10"
+        className="rounded-2xl p-10"
         style={{
           background: bgColor,
           boxShadow: `0 4px 32px 0 ${lightBlue}22`,

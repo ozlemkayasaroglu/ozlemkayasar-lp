@@ -15,10 +15,9 @@ const earthPastel = {
 const WhoAmI: React.FC = () => {
   return (
     <div
-      className="mt-20 flex flex-col items-center rounded-2xl shadow p-8 mb-10 max-w-3xl mx-auto"
+      className="mt-20 flex flex-col items-center rounded-2xl  p-8 mb-10 max-w-3xl mx-auto"
       style={{
         background: earthPastel.bg,
-        border: `1.5px solid ${earthPastel.border}`,
       }}
     >
       <img
@@ -49,6 +48,7 @@ const WhoAmI: React.FC = () => {
             color: earthPastel.text2,
             background: "#f8f8f631",
             borderLeft: `3px solid ${earthPastel.leaf}`,
+            borderRight: `3px solid ${earthPastel.leaf}`,
           }}
         >
           &quot;Kod,{" "}

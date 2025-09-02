@@ -37,8 +37,6 @@ function App() {
       className="min-h-screen transition-colors duration-300"
       style={{ background: "#fff", color: "#cdb4db" }}
     >
-      <Header darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
-
       <main>
         <WhoAmI />
         <Projects />

@@ -34,7 +34,7 @@ const Conferences: React.FC = () => {
   return (
     <section className="py-2 px-4 max-w-4xl mx-auto">
       <div
-        className="rounded-2xl shadow-lg p-10 max-w-4xl mx-auto"
+        className="rounded-2xl p-10 max-w-4xl mx-auto"
         style={{ background: "#fff" }}
       >
         <h2
