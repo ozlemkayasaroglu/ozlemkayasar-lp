@@ -160,6 +160,7 @@ const earthPastel = {
 
 const Projects: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
   const [activeTab, setActiveTab] = useState(categoryTabs[0].key);
+  const [modalImg, setModalImg] = useState<string | null>(null);
   const activeSection = projects.find(
     (section) => section.category === activeTab
   );
@@ -232,7 +233,7 @@ const Projects: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
         </div>
         {activeSection && (
           <div
-            className="mb-4 animate-fade-in"
+            className="mb-4 animate-fade-in gap-6"
             style={{
               animation: "fadeInUp 0.6s cubic-bezier(0.23, 1, 0.32, 1)",
             }}
@@ -243,84 +244,182 @@ const Projects: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
                 100% { opacity: 1; transform: translateY(0); }
               }
             `}</style>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {activeSection.items.map((item, idx) => (
-                <div
-                  key={idx}
-                  className="rounded-xl p-6 flex flex-col h-full transition-transform duration-300 hover:-translate-y-1 cursor-pointer border"
-                  style={{
-                    background: earthPastel.bg,
-                    color: earthPastel.text,
-                    borderColor: earthPastel.border,
-                  }}
-                  onMouseEnter={(e) =>
-                    (e.currentTarget.style.background = earthPastel.hover)
-                  }
-                  onMouseLeave={(e) =>
-                    (e.currentTarget.style.background = earthPastel.bg)
-                  }
-                >
-                  <h4
-                    className="text-lg md:text-xl font-bold mb-1 leading-snug"
-                    style={{ color: earthPastel.text2 }}
-                  >
-                    {item.link ? (
-                      <a
-                        href={item.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="hover:underline"
-                        style={{ color: earthPastel.text2 }}
-                      >
-                        {item.title}
-                      </a>
-                    ) : (
-                      item.title
-                    )}
-                    {item.status && (
-                      <span
-                        className="ml-2 text-xs font-medium"
-                        style={{ color: earthPastel.text2 }}
-                      >
-                        {item.status}
-                      </span>
-                    )}
-                  </h4>
-                  <p
-                    className="text-sm md:text-base font-light mb-1 leading-relaxed"
-                    style={{ color: earthPastel.text2 }}
-                  >
-                    {item.description}
-                  </p>
-                  {item.approach && (
-                    <p
-                      className="text-xs md:text-sm mt-1 font-normal"
-                      style={{ color: earthPastel.text2 }}
+            <div className="w-full grid gap-6">
+              {activeSection.items.map((item, idx) => {
+                // Code Review Serisi için özel layout
+                if (item.title === "Code Review Serisi" && item.image) {
+                  return (
+                    <div
+                      key={idx}
+                      className="rounded-xl p-6 flex flex-col md:flex-row w-full transition-transform duration-300 hover:-translate-y-1 cursor-pointer border"
+                      style={{
+                        background: earthPastel.bg,
+                        color: earthPastel.text,
+                        borderColor: earthPastel.border,
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.background = earthPastel.hover;
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.background = earthPastel.bg;
+                      }}
                     >
-                      Yaklaşım: {item.approach}
-                    </p>
-                  )}
-                  {item.platforms && (
-                    <p
-                      className="text-xs md:text-sm mt-1 font-normal"
-                      style={{ color: earthPastel.text2 }}
-                    >
-                      Platformlar: {item.platforms.join(", ")}
-                    </p>
-                  )}
-                  {item.image && (
-                    <div className="mt-4">
-                      <img
-                        src={item.image}
-                        alt={item.title}
-                        className="rounded-lg w-full"
-                        style={{ border: `1.5px solid ${earthPastel.leaf}` }}
-                      />
+                      <div className="md:w-1/3 w-full flex-shrink-0 flex items-center justify-center mb-4 md:mb-0 md:mr-6">
+                        <img
+                          src={item.image}
+                          alt={item.title}
+                          className="rounded-lg w-full max-w-[120px] md:max-w-[140px] cursor-zoom-in border"
+                          style={{ border: `1.5px solid ${earthPastel.leaf}` }}
+                          onClick={() => setModalImg(item.image!)}
+                        />
+                      </div>
+                      <div className="md:w-2/3 w-full flex flex-col justify-center">
+                        <h4
+                          className="text-lg md:text-xl font-bold mb-1 leading-snug"
+                          style={{ color: earthPastel.text2 }}
+                        >
+                          {item.link ? (
+                            <a
+                              href={item.link}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="hover:underline"
+                              style={{ color: earthPastel.text2 }}
+                            >
+                              {item.title}
+                            </a>
+                          ) : (
+                            item.title
+                          )}
+                          {item.status && (
+                            <span
+                              className="ml-2 text-xs font-medium"
+                              style={{ color: earthPastel.text2 }}
+                            >
+                              {item.status}
+                            </span>
+                          )}
+                        </h4>
+                        <p
+                          className="text-sm md:text-base font-light mb-1 leading-relaxed"
+                          style={{ color: earthPastel.text2 }}
+                        >
+                          {item.description}
+                        </p>
+                        {item.approach && (
+                          <p
+                            className="text-xs md:text-sm mt-1 font-normal"
+                            style={{ color: earthPastel.text2 }}
+                          >
+                            Yaklaşım: {item.approach}
+                          </p>
+                        )}
+                        {item.platforms && (
+                          <p
+                            className="text-xs md:text-sm mt-1 font-normal"
+                            style={{ color: earthPastel.text2 }}
+                          >
+                            Platformlar: {item.platforms.join(", ")}
+                          </p>
+                        )}
+                      </div>
                     </div>
-                  )}
-                </div>
-              ))}
+                  );
+                }
+                // Diğer kartlar
+                return (
+                  <div
+                    key={idx}
+                    className="rounded-xl p-6 flex flex-col h-full transition-transform duration-300 hover:-translate-y-1 cursor-pointer border"
+                    style={{
+                      background: earthPastel.bg,
+                      color: earthPastel.text,
+                      borderColor: earthPastel.border,
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background = earthPastel.hover;
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = earthPastel.bg;
+                    }}
+                  >
+                    <h4
+                      className="text-lg md:text-xl font-bold mb-1 leading-snug"
+                      style={{ color: earthPastel.text2 }}
+                    >
+                      {item.link ? (
+                        <a
+                          href={item.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hover:underline"
+                          style={{ color: earthPastel.text2 }}
+                        >
+                          {item.title}
+                        </a>
+                      ) : (
+                        item.title
+                      )}
+                      {item.status && (
+                        <span
+                          className="ml-2 text-xs font-medium"
+                          style={{ color: earthPastel.text2 }}
+                        >
+                          {item.status}
+                        </span>
+                      )}
+                    </h4>
+                    <p
+                      className="text-sm md:text-base font-light mb-1 leading-relaxed"
+                      style={{ color: earthPastel.text2 }}
+                    >
+                      {item.description}
+                    </p>
+                    {item.approach && (
+                      <p
+                        className="text-xs md:text-sm mt-1 font-normal"
+                        style={{ color: earthPastel.text2 }}
+                      >
+                        Yaklaşım: {item.approach}
+                      </p>
+                    )}
+                    {item.platforms && (
+                      <p
+                        className="text-xs md:text-sm mt-1 font-normal"
+                        style={{ color: earthPastel.text2 }}
+                      >
+                        Platformlar: {item.platforms.join(", ")}
+                      </p>
+                    )}
+                    {item.image && (
+                      <div className="mt-4">
+                        <img
+                          src={item.image}
+                          alt={item.title}
+                          className="rounded-lg w-full"
+                          style={{ border: `1.5px solid ${earthPastel.leaf}` }}
+                          onClick={() => setModalImg(item.image!)}
+                        />
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
             </div>
+            {/* Modal for image zoom */}
+            {modalImg && (
+              <div
+                className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50"
+                onClick={() => setModalImg(null)}
+                style={{ cursor: "zoom-out" }}
+              >
+                <img
+                  src={modalImg}
+                  alt="Büyük Fotoğraf"
+                  className="max-w-full max-h-[90vh] rounded-2xl border-4 border-white"
+                />
+              </div>
+            )}
           </div>
         )}
       </div>

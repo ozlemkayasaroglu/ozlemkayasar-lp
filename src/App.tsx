@@ -30,7 +30,9 @@ function App() {
     setDarkMode(!darkMode);
   };
 
-  const [showSection, setShowSection] = useState<"none" | "projects" | "conferences">("none");
+  const [showSection, setShowSection] = useState<
+    "none" | "projects" | "conferences"
+  >("none");
 
   // Animasyonlu geçiş için class
   const fadeClass = "transition-all duration-500 ease-in-out";
