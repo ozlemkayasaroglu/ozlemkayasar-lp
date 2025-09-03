@@ -81,7 +81,7 @@ const projects: ProjectSection[] = [
           "Junior yazılımcıların gerçek dünyadaki projelerini ve kodlarını, sektörden senior yazılımcılarla birlikte incelediğimiz bir yayın serisi. Amaç, hem kodun iyileştirilebileceği noktaları göstermek hem de junior'lar ile senior'lar arasında değerli bir diyalog köprüsü kurmak.",
         approach:
           "Kod review'larını yaparken sadece syntax hatalarına değil, clean code principles, architecture, scalability ve best practices konularına da odaklanıyoruz.",
-        image: "../src/assets/code-review.jpg",
+        image: "/assets/code-review.jpg",
       },
     ],
   },
@@ -373,8 +373,8 @@ const Projects: React.FC<{ onBack?: () => void }> = ({}) => {
                         {item.title}
                         {item.status && (
                           <span
-                            className="ml-2 text-xs font-medium"
-                            style={{ color: earthPastel.text2 }}
+                            className="ml-2 text-md font-bold"
+                            style={{ color: earthPastel.pink }}
                           >
                             {item.status}
                           </span>
