@@ -81,7 +81,7 @@ const projects: ProjectSection[] = [
           "Junior yazılımcıların gerçek dünyadaki projelerini ve kodlarını, sektörden senior yazılımcılarla birlikte incelediğimiz bir yayın serisi. Amaç, hem kodun iyileştirilebileceği noktaları göstermek hem de junior'lar ile senior'lar arasında değerli bir diyalog köprüsü kurmak.",
         approach:
           "Kod review'larını yaparken sadece syntax hatalarına değil, clean code principles, architecture, scalability ve best practices konularına da odaklanıyoruz.",
-        image: "../src/assets/code-review.jpg", // require yerine public yoluyla erişim
+        image: "../src/assets/code-review.jpg",
       },
     ],
   },
@@ -159,14 +159,18 @@ const Projects: React.FC<{ onBack?: () => void }> = ({}) => {
 
   return (
     <section className="py-2 px-4 max-w-4xl mx-auto">
-      <div style={{ borderTop: `2px solid ${earthPastel.border}`, width: "100%", color: earthPastel.text }}>
+      <div
+        style={{
+          borderTop: `2px solid ${earthPastel.border}`,
+          width: "100%",
+          color: earthPastel.text,
+        }}
+      >
         <h2
           className="text-3xl font-extrabold mt-6 mb-6 flex items-center justify-center gap-2 tracking-tight"
           style={{ color: earthPastel.text2 }}
         >
-          
-            🚀 Projelerim
-        
+          🚀 Projelerim
         </h2>
         <p
           className="mb-5 text-base md:text-md font-base leading-relaxed"
@@ -205,7 +209,8 @@ const Projects: React.FC<{ onBack?: () => void }> = ({}) => {
                 if (activeTab !== tab.key) {
                   e.currentTarget.style.background = "transparent";
                   e.currentTarget.style.borderColor = earthPastel.pink;
-                  e.currentTarget.style.color = earthPastel.text2 as unknown as string;
+                  e.currentTarget.style.color =
+                    earthPastel.text2 as unknown as string;
                 }
               }}
             >
@@ -226,15 +231,14 @@ const Projects: React.FC<{ onBack?: () => void }> = ({}) => {
                 100% { opacity: 1; transform: translateY(0); }
               }
             `}</style>
-            <div className="w-full grid grid-cols-2 gap-4">
+            <div className="w-full grid gap-4">
               {activeSection.items.map((item, idx) => {
                 // Code Review Serisi için özel layout
                 if (item.title === "Code Review Serisi" && item.image) {
                   return (
-                    
                     <div
                       key={idx}
-                      className="rounded-xl p-6 flex flex-col md:flex-row w-full transition-all duration-300 hover:-translate-y-1 cursor-pointer border hover:shadow-lg"
+                      className="rounded-xl p-6 flex md:flex-row w-full transition-all duration-300 hover:-translate-y-1 cursor-pointer border hover:shadow-lg"
                       style={{
                         background: earthPastel.bg,
                         color: earthPastel.text,
@@ -248,7 +252,11 @@ const Projects: React.FC<{ onBack?: () => void }> = ({}) => {
                       }}
                       onClick={() => {
                         if (item.link) {
-                          window.open(item.link, "_blank", "noopener,noreferrer");
+                          window.open(
+                            item.link,
+                            "_blank",
+                            "noopener,noreferrer"
+                          );
                         }
                       }}
                       role={item.link ? "link" : undefined}
@@ -256,7 +264,11 @@ const Projects: React.FC<{ onBack?: () => void }> = ({}) => {
                       onKeyDown={(e) => {
                         if (item.link && (e.key === "Enter" || e.key === " ")) {
                           e.preventDefault();
-                          window.open(item.link!, "_blank", "noopener,noreferrer");
+                          window.open(
+                            item.link!,
+                            "_blank",
+                            "noopener,noreferrer"
+                          );
                         }
                       }}
                     >
@@ -334,7 +346,11 @@ const Projects: React.FC<{ onBack?: () => void }> = ({}) => {
                       }
                       onClick={() => {
                         if (item.link) {
-                          window.open(item.link, "_blank", "noopener,noreferrer");
+                          window.open(
+                            item.link,
+                            "_blank",
+                            "noopener,noreferrer"
+                          );
                         }
                       }}
                       role={item.link ? "link" : undefined}
@@ -342,7 +358,11 @@ const Projects: React.FC<{ onBack?: () => void }> = ({}) => {
                       onKeyDown={(e) => {
                         if (item.link && (e.key === "Enter" || e.key === " ")) {
                           e.preventDefault();
-                          window.open(item.link!, "_blank", "noopener,noreferrer");
+                          window.open(
+                            item.link!,
+                            "_blank",
+                            "noopener,noreferrer"
+                          );
                         }
                       }}
                     >
@@ -353,8 +373,8 @@ const Projects: React.FC<{ onBack?: () => void }> = ({}) => {
                         {item.title}
                         {item.status && (
                           <span
-                            className="ml-2 text-xs font-medium"
-                            style={{ color: earthPastel.text2 }}
+                            className="ml-2 text-md font-bold"
+                            style={{ color: earthPastel.accent }}
                           >
                             {item.status}
                           </span>
@@ -424,7 +444,11 @@ const Projects: React.FC<{ onBack?: () => void }> = ({}) => {
                     onKeyDown={(e) => {
                       if (item.link && (e.key === "Enter" || e.key === " ")) {
                         e.preventDefault();
-                        window.open(item.link!, "_blank", "noopener,noreferrer");
+                        window.open(
+                          item.link!,
+                          "_blank",
+                          "noopener,noreferrer"
+                        );
                       }
                     }}
                   >
