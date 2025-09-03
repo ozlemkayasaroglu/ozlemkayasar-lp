@@ -49,8 +49,8 @@ export const earthPastelDark = {
   text2: "#e8decf",
   accent: "#7ab882",
   highlight: "#c7ad86",
-  pink: "rgb(255, 175, 204, 1)",
-  hover: "rgb(255, 175, 204, 1)",
+  pink: "#FFAFCCBB",
+  hover: "#FFAFCCBB",
 };
 
 export const getPalette = () =>

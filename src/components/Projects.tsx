@@ -176,12 +176,12 @@ const Projects: React.FC<{ onBack?: () => void }> = ({}) => {
           üzerinde çalıştım. İşte beni ve becerilerimi yansıtan bazı
           çalışmalarım:
         </p>
-        <div className="flex flex-nowrap gap-2 mb-10 justify-center overflow-x-auto scrollbar-thin">
+        <div className="flex flex-wrap gap-2 mb-10 justify-center">
           {categoryTabs.map((tab) => (
             <button
               key={tab.key}
               onClick={() => setActiveTab(tab.key)}
-              className={`whitespace-nowrap px-5 py-2 rounded-full font-semibold transition-colors duration-200 border-2 text-sm md:text-sm flex-shrink-0`}
+              className={`whitespace-nowrap px-5 py-2 rounded-full font-semibold transition-colors duration-200 border-2 text-sm md:text-sm`}
               style={
                 activeTab === tab.key
                   ? {
@@ -226,7 +226,7 @@ const Projects: React.FC<{ onBack?: () => void }> = ({}) => {
                 100% { opacity: 1; transform: translateY(0); }
               }
             `}</style>
-            <div className="w-full grid gap-4">
+            <div className="w-full grid grid-cols-2 gap-4">
               {activeSection.items.map((item, idx) => {
                 // Code Review Serisi için özel layout
                 if (item.title === "Code Review Serisi" && item.image) {
@@ -382,8 +382,8 @@ const Projects: React.FC<{ onBack?: () => void }> = ({}) => {
                           Platformlar: {item.platforms.join(", ")}
                         </p>
                       )}
-                      {/* Spotify embed */}
-                      <div className="mt-4">
+                      {/* Spotify embed - hide on sm/md/mobile */}
+                      <div className="mt-4 hidden lg:block">
                         <iframe
                           data-testid="embed-iframe"
                           style={{ borderRadius: "12px" }}
