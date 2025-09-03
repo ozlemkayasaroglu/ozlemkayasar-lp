@@ -1,19 +1,11 @@
 import React, { useState } from "react";
+import { earthPastel } from "../theme/palette";
 import nitelik1 from "../assets/nitelik-noktasi-1.jpeg";
 import nitelik2 from "../assets/nitelik-noktasi-2.jpeg";
 import react1 from "../assets/react-konf-1.jpeg";
 import react2 from "../assets/react-konf-2.jpeg";
 
-const earthPastel = {
-  bg: "#ffffff51", // pastel açık toprak
-  border: "#918377ff", // pastel toprak
-  text: "#7d6e57",
-  text2: "#5b5449ff", // açık pastel koyu toprak
-  accent: "#8cc887ff", // pastel yeşil
-  highlight: "#e7cba9", // pastel sarımsı toprak
-  leaf: "#a3c9a8", // pastel yaprak yeşili
-  hover: "#98d1a052",
-};
+// palette imported from ../theme/palette
 
 // Konferans verisi eklendi
 const conferences = [
@@ -47,47 +39,36 @@ const Conferences: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
   return (
     <section
       className="py-2 px-4 max-w-4xl mx-auto"
-      style={{ background: earthPastel.bg }}
+   
     >
-      <div
-        className="rounded-sm p-10"
-        style={{
-          background: earthPastel.bg,
-          borderTop: `1.5px solid ${earthPastel.border}`,
-        }}
-      >
+      <div style={{ borderTop: `2px solid ${earthPastel.border}`, width: "100%", color: earthPastel.text }}>
         <h2
-          className="text-xl md:text-4xl font-extrabold mb-4 flex items-center gap-2 tracking-tight "
+          className="text-3xl font-extrabold mt-6 mb-6 flex items-center justify-center gap-2 tracking-tight"
           style={{ color: earthPastel.text2 }}
         >
-          <span role="img" aria-label="mic">
-            🎤
-          </span>{" "}
-          Konferans & Paneller
+          
+            🚀 Konferans & Paneller
+          
         </h2>
         <p
-          className="mb-10 text-base md:text-lg font-light leading-relaxed text-center"
+          className="mb-5 text-base md:text-md font-base leading-relaxed"
           style={{ color: earthPastel.text2 }}
         >
           Teknoloji ve girişimcilik ekosistemine olan tutkum, beni sadece kod
           yazmanın ötesine, bu alanlarda deneyimlerimi paylaşmaya itiyor.
         </p>
+        <style>{`
+          .conf-card:hover { background: ${earthPastel.pink}; }
+        `}</style>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {conferences.map((event, idx) => (
             <div
               key={idx}
-              className="rounded-xl p-6 flex flex-col h-full transition-transform duration-300 hover:-translate-y-1 cursor-pointer border"
+              className="conf-card rounded-xl p-6 flex flex-col h-full transition-transform duration-300 hover:-translate-y-1 cursor-pointer border"
               style={{
-                background: earthPastel.bg,
                 color: earthPastel.text,
                 borderColor: earthPastel.border,
               }}
-              onMouseEnter={(e) =>
-                (e.currentTarget.style.background = earthPastel.hover)
-              }
-              onMouseLeave={(e) =>
-                (e.currentTarget.style.background = earthPastel.bg)
-              }
             >
               <h4
                 className="text-lg md:text-xl font-bold mb-1 leading-snug"
@@ -140,7 +121,7 @@ const Conferences: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
                       src={img}
                       alt="Konferans görseli"
                       className="w-32 h-32 object-cover rounded-lg border cursor-zoom-in transition-transform duration-200 hover:scale-105"
-                      style={{ borderColor: earthPastel.leaf }}
+                      style={{ borderColor: earthPastel.pink }}
                       onClick={() => setModalImg(img)}
                     />
                   ))}

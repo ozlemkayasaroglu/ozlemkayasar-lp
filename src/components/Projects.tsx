@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { earthPastel } from "../theme/palette";
 
 type ProjectItem = {
   title: string;
@@ -75,7 +76,7 @@ const projects: ProjectSection[] = [
     items: [
       {
         title: "Code Review Serisi",
-        link: "https://www.youtube.com/results?search_query=kod+review+serisi",
+        link: "https://www.youtube.com/playlist?list=PLvsZABeEsC5AWRrJzgHRIa-Chs75gni56",
         description:
           "Junior yazılımcıların gerçek dünyadaki projelerini ve kodlarını, sektörden senior yazılımcılarla birlikte incelediğimiz bir yayın serisi. Amaç, hem kodun iyileştirilebileceği noktaları göstermek hem de junior'lar ile senior'lar arasında değerli bir diyalog köprüsü kurmak.",
         approach:
@@ -89,7 +90,7 @@ const projects: ProjectSection[] = [
     items: [
       {
         title: "Yapay Zeka ve...",
-        link: "https://www.youtube.com/results?search_query=Yapay+Zeka+ve",
+        link: "https://www.youtube.com/watch?v=m_7p3eLbnWY&list=PLvsZABeEsC5B8CdisgryovtTomSWlKC2X",
         description:
           "Yapay zekanın sadece kod ve algoritmalardan ibaret olmadığını, insanlığın geleceğini şekillendiren bir güç olduğunu araştırdığım bir podcast serisi. Yapay zekanın eğitim, sağlık, kimlik, ölümsüzlük, hukuk, spiritualite ve çocuklarımızın geleceği gibi derin konularla kesişimini inceliyor, etik sınırlarını ve olası etkilerini sorguluyorum.",
         approach:
@@ -147,18 +148,9 @@ const categoryTabs = [
   },
 ];
 
-const earthPastel = {
-  bg: "#ffffff51", // pastel açık toprak
-  border: "#918377ff", // pastel toprak
-  text: "#7d6e57",
-  text2: "#5b5449ff", // açık pastel koyu toprak
-  accent: "#8cc887ff", // pastel yeşil
-  highlight: "#e7cba9", // pastel sarımsı toprak
-  leaf: "#a3c9a8", // pastel yaprak yeşili
-  hover: "#98d1a052",
-};
+// palette imported from ../theme/palette
 
-const Projects: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
+const Projects: React.FC<{ onBack?: () => void }> = ({}) => {
   const [activeTab, setActiveTab] = useState(categoryTabs[0].key);
   const [modalImg, setModalImg] = useState<string | null>(null);
   const activeSection = projects.find(
@@ -166,25 +158,15 @@ const Projects: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
   );
 
   return (
-    <section
-      className="py-2 px-4 max-w-4xl mx-auto"
-      style={{ background: earthPastel.bg }}
-    >
-      <div
-        className="rounded-sm p-10"
-        style={{
-          background: earthPastel.bg,
-          borderTop: `1.5px solid ${earthPastel.border}`,
-        }}
-      >
+    <section className="py-2 px-4 max-w-4xl mx-auto">
+      <div style={{ borderTop: `2px solid ${earthPastel.border}`, width: "100%", color: earthPastel.text }}>
         <h2
-          className="text-xl md:text-4xl font-extrabold mb-4 flex items-center gap-2 tracking-tight"
+          className="text-3xl font-extrabold mt-6 mb-6 flex items-center justify-center gap-2 tracking-tight"
           style={{ color: earthPastel.text2 }}
         >
-          <span role="img" aria-label="rocket">
-            🚀
-          </span>{" "}
-          Projelerim
+          
+            🚀 Projelerim
+        
         </h2>
         <p
           className="mb-5 text-base md:text-md font-base leading-relaxed"
@@ -194,10 +176,7 @@ const Projects: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
           üzerinde çalıştım. İşte beni ve becerilerimi yansıtan bazı
           çalışmalarım:
         </p>
-        <div
-          className="flex flex-nowrap gap-2 mb-10 justify-center overflow-x-auto scrollbar-thin"
-          style={{ scrollbarColor: `${earthPastel.leaf} ${earthPastel.bg}` }}
-        >
+        <div className="flex flex-nowrap gap-2 mb-10 justify-center overflow-x-auto scrollbar-thin">
           {categoryTabs.map((tab) => (
             <button
               key={tab.key}
@@ -206,24 +185,27 @@ const Projects: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
               style={
                 activeTab === tab.key
                   ? {
-                      background: earthPastel.leaf,
-                      borderColor: earthPastel.leaf,
+                      background: earthPastel.pink,
+                      borderColor: earthPastel.pink,
                       color: "#fff",
                     }
                   : {
-                      background: earthPastel.bg,
-                      borderColor: earthPastel.leaf,
+                      borderColor: earthPastel.pink,
                       color: earthPastel.text2,
                     }
               }
               onMouseEnter={(e) => {
-                if (!activeTab || tab.key !== activeTab) {
-                  e.currentTarget.style.background = earthPastel.hover;
+                if (activeTab !== tab.key) {
+                  e.currentTarget.style.background = earthPastel.pink;
+                  e.currentTarget.style.borderColor = earthPastel.pink;
+                  e.currentTarget.style.color = "#fff";
                 }
               }}
               onMouseLeave={(e) => {
-                if (!activeTab || tab.key !== activeTab) {
-                  e.currentTarget.style.background = earthPastel.bg;
+                if (activeTab !== tab.key) {
+                  e.currentTarget.style.background = "transparent";
+                  e.currentTarget.style.borderColor = earthPastel.pink;
+                  e.currentTarget.style.color = earthPastel.text2 as unknown as string;
                 }
               }}
             >
@@ -244,14 +226,15 @@ const Projects: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
                 100% { opacity: 1; transform: translateY(0); }
               }
             `}</style>
-            <div className="w-full grid gap-6">
+            <div className="w-full grid gap-4">
               {activeSection.items.map((item, idx) => {
                 // Code Review Serisi için özel layout
                 if (item.title === "Code Review Serisi" && item.image) {
                   return (
+                    
                     <div
                       key={idx}
-                      className="rounded-xl p-6 flex flex-col md:flex-row w-full transition-transform duration-300 hover:-translate-y-1 cursor-pointer border"
+                      className="rounded-xl p-6 flex flex-col md:flex-row w-full transition-all duration-300 hover:-translate-y-1 cursor-pointer border hover:shadow-lg"
                       style={{
                         background: earthPastel.bg,
                         color: earthPastel.text,
@@ -261,16 +244,32 @@ const Projects: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
                         e.currentTarget.style.background = earthPastel.hover;
                       }}
                       onMouseLeave={(e) => {
-                        e.currentTarget.style.background = earthPastel.bg;
+                        e.currentTarget.style.background = "";
+                      }}
+                      onClick={() => {
+                        if (item.link) {
+                          window.open(item.link, "_blank", "noopener,noreferrer");
+                        }
+                      }}
+                      role={item.link ? "link" : undefined}
+                      tabIndex={item.link ? 0 : -1}
+                      onKeyDown={(e) => {
+                        if (item.link && (e.key === "Enter" || e.key === " ")) {
+                          e.preventDefault();
+                          window.open(item.link!, "_blank", "noopener,noreferrer");
+                        }
                       }}
                     >
                       <div className="md:w-1/3 w-full flex-shrink-0 flex items-center justify-center mb-4 md:mb-0 md:mr-6">
                         <img
                           src={item.image}
                           alt={item.title}
-                          className="rounded-lg w-full max-w-[120px] md:max-w-[140px] cursor-zoom-in border"
-                          style={{ border: `1.5px solid ${earthPastel.leaf}` }}
-                          onClick={() => setModalImg(item.image!)}
+                          className="rounded-lg w-full max-w-[400px] h-full object-cover md:max-w-[400px] cursor-zoom-in border"
+                          style={{ border: `1.5px solid ${earthPastel.pink}` }}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setModalImg(item.image!);
+                          }}
                         />
                       </div>
                       <div className="md:w-2/3 w-full flex flex-col justify-center">
@@ -278,23 +277,14 @@ const Projects: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
                           className="text-lg md:text-xl font-bold mb-1 leading-snug"
                           style={{ color: earthPastel.text2 }}
                         >
-                          {item.link ? (
-                            <a
-                              href={item.link}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="hover:underline"
-                              style={{ color: earthPastel.text2 }}
-                            >
-                              {item.title}
-                            </a>
-                          ) : (
-                            item.title
-                          )}
+                          {item.title}
                           {item.status && (
                             <span
-                              className="ml-2 text-xs font-medium"
-                              style={{ color: earthPastel.text2 }}
+                              className="ml-2 text-md font-bold px-2 py-1 rounded-full"
+                              style={{
+                                color: earthPastel.pink,
+                                background: `${earthPastel.pink}20`, // %20 opacity
+                              }}
                             >
                               {item.status}
                             </span>
@@ -308,7 +298,7 @@ const Projects: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
                         </p>
                         {item.approach && (
                           <p
-                            className="text-xs md:text-sm mt-1 font-normal"
+                            className="text-xs md:text-sm mt-1 font-bold"
                             style={{ color: earthPastel.text2 }}
                           >
                             Yaklaşım: {item.approach}
@@ -316,7 +306,7 @@ const Projects: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
                         )}
                         {item.platforms && (
                           <p
-                            className="text-xs md:text-sm mt-1 font-normal"
+                            className="text-xs md:text-sm mt-1 font-bold"
                             style={{ color: earthPastel.text2 }}
                           >
                             Platformlar: {item.platforms.join(", ")}
@@ -333,7 +323,6 @@ const Projects: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
                       key={idx}
                       className="rounded-xl p-6 flex flex-col h-full transition-transform duration-300 hover:-translate-y-1 cursor-pointer border"
                       style={{
-                        background: earthPastel.bg,
                         color: earthPastel.text,
                         borderColor: earthPastel.border,
                       }}
@@ -341,26 +330,27 @@ const Projects: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
                         (e.currentTarget.style.background = earthPastel.hover)
                       }
                       onMouseLeave={(e) =>
-                        (e.currentTarget.style.background = earthPastel.bg)
+                        (e.currentTarget.style.background = "")
                       }
+                      onClick={() => {
+                        if (item.link) {
+                          window.open(item.link, "_blank", "noopener,noreferrer");
+                        }
+                      }}
+                      role={item.link ? "link" : undefined}
+                      tabIndex={item.link ? 0 : -1}
+                      onKeyDown={(e) => {
+                        if (item.link && (e.key === "Enter" || e.key === " ")) {
+                          e.preventDefault();
+                          window.open(item.link!, "_blank", "noopener,noreferrer");
+                        }
+                      }}
                     >
                       <h4
                         className="text-lg md:text-xl font-bold mb-1 leading-snug"
                         style={{ color: earthPastel.text2 }}
                       >
-                        {item.link ? (
-                          <a
-                            href={item.link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="hover:underline"
-                            style={{ color: earthPastel.text2 }}
-                          >
-                            {item.title}
-                          </a>
-                        ) : (
-                          item.title
-                        )}
+                        {item.title}
                         {item.status && (
                           <span
                             className="ml-2 text-xs font-medium"
@@ -378,7 +368,7 @@ const Projects: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
                       </p>
                       {item.approach && (
                         <p
-                          className="text-xs md:text-sm mt-1 font-normal"
+                          className="text-xs md:text-sm mt-1 font-bold"
                           style={{ color: earthPastel.text2 }}
                         >
                           Yaklaşım: {item.approach}
@@ -386,7 +376,7 @@ const Projects: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
                       )}
                       {item.platforms && (
                         <p
-                          className="text-xs md:text-sm mt-1 font-normal"
+                          className="text-xs md:text-sm mt-1 font-bold"
                           style={{ color: earthPastel.text2 }}
                         >
                           Platformlar: {item.platforms.join(", ")}
@@ -415,7 +405,6 @@ const Projects: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
                     key={idx}
                     className="rounded-xl p-6 flex flex-col h-full transition-transform duration-300 hover:-translate-y-1 cursor-pointer border"
                     style={{
-                      background: earthPastel.bg,
                       color: earthPastel.text,
                       borderColor: earthPastel.border,
                     }}
@@ -423,26 +412,27 @@ const Projects: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
                       e.currentTarget.style.background = earthPastel.hover;
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.background = earthPastel.bg;
+                      e.currentTarget.style.background = "";
+                    }}
+                    onClick={() => {
+                      if (item.link) {
+                        window.open(item.link, "_blank", "noopener,noreferrer");
+                      }
+                    }}
+                    role={item.link ? "link" : undefined}
+                    tabIndex={item.link ? 0 : -1}
+                    onKeyDown={(e) => {
+                      if (item.link && (e.key === "Enter" || e.key === " ")) {
+                        e.preventDefault();
+                        window.open(item.link!, "_blank", "noopener,noreferrer");
+                      }
                     }}
                   >
                     <h4
                       className="text-lg md:text-xl font-bold mb-1 leading-snug"
                       style={{ color: earthPastel.text2 }}
                     >
-                      {item.link ? (
-                        <a
-                          href={item.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="hover:underline"
-                          style={{ color: earthPastel.text2 }}
-                        >
-                          {item.title}
-                        </a>
-                      ) : (
-                        item.title
-                      )}
+                      {item.title}
                       {item.status && (
                         <span
                           className="ml-2 text-xs font-medium"
@@ -460,7 +450,7 @@ const Projects: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
                     </p>
                     {item.approach && (
                       <p
-                        className="text-xs md:text-sm mt-1 font-normal"
+                        className="text-xs md:text-sm mt-1 font-bold"
                         style={{ color: earthPastel.text2 }}
                       >
                         Yaklaşım: {item.approach}
@@ -468,7 +458,7 @@ const Projects: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
                     )}
                     {item.platforms && (
                       <p
-                        className="text-xs md:text-sm mt-1 font-normal"
+                        className="text-xs md:text-sm mt-1 font-bold"
                         style={{ color: earthPastel.text2 }}
                       >
                         Platformlar: {item.platforms.join(", ")}
@@ -479,9 +469,12 @@ const Projects: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
                         <img
                           src={item.image}
                           alt={item.title}
-                          className="rounded-lg w-full"
-                          style={{ border: `1.5px solid ${earthPastel.leaf}` }}
-                          onClick={() => setModalImg(item.image!)}
+                          className="rounded-lg w-full h-full object-cover"
+                          style={{ border: `1.5px solid ${earthPastel.pink}` }}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setModalImg(item.image!);
+                          }}
                         />
                       </div>
                     )}
