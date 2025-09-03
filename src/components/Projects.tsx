@@ -272,11 +272,11 @@ const Projects: React.FC<{ onBack?: () => void }> = ({}) => {
                         }
                       }}
                     >
-                      <div className="md:w-1/3 w-full flex-shrink-0 flex items-center justify-center mb-4 md:mb-0 md:mr-6">
+                      <div className="md:w-1/3 w-full flex-shrink-0 flex items-center justify-center mb-4 md:mb-0 md:mr-6 hidden md:flex">
                         <img
                           src={item.image}
                           alt={item.title}
-                          className="rounded-lg w-full max-w-[400px] h-full object-cover md:max-w-[400px] cursor-zoom-in border"
+                          className="rounded-lg w-full max-w-[180px] md:max-w-[400px] h-auto object-cover cursor-zoom-in border"
                           style={{ border: `1.5px solid ${earthPastel.pink}` }}
                           onClick={(e) => {
                             e.stopPropagation();
@@ -373,8 +373,8 @@ const Projects: React.FC<{ onBack?: () => void }> = ({}) => {
                         {item.title}
                         {item.status && (
                           <span
-                            className="ml-2 text-md font-bold"
-                            style={{ color: earthPastel.accent }}
+                            className="ml-2 text-xs font-medium"
+                            style={{ color: earthPastel.text2 }}
                           >
                             {item.status}
                           </span>
