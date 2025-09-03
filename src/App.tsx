@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { getPalette } from "./theme/palette";
 
 import WhoAmI from "./components/WhoAmI";
 import Projects from "./components/Projects";
 import Conferences from "./components/Conferences";
+import Footer from "./components/Footer";
 
 function App() {
   const [darkMode, setDarkMode] = useState(() => {
@@ -40,14 +42,23 @@ function App() {
   return (
     <div
       className="min-h-screen transition-colors duration-300"
-      style={{ background: "#fff", color: "#cdb4db" }}
+      style={{ background: getPalette().bg, color: getPalette().text2 }}
     >
+      <button
+        onClick={toggleDarkMode}
+        aria-label={darkMode ? "Açık moda geç" : "Koyu moda geç"}
+        className="fixed top-4 right-4 z-50 px-3 py-2 rounded-full border text-sm font-medium shadow-sm transition-colors duration-200"
+        style={{
+          background: getPalette().pink,
+          borderColor: getPalette().pink,
+          color: "#fff",
+        }}
+      >
+        {darkMode ? "☀️ Light" : "🌙 Dark"}
+      </button>
       <main>
         <div className={fadeClass}>
-          <WhoAmI
-            onShowProjects={() => setShowSection("projects")}
-            onShowConferences={() => setShowSection("conferences")}
-          />
+          <WhoAmI />
         </div>
         {showSection === "projects" && (
           <div
@@ -82,6 +93,7 @@ function App() {
           </div>
         )}
       </main>
+      <Footer />
     </div>
   );
 }

@@ -42,4 +42,20 @@ export const typography = {
 
 export type Typography = typeof typography;
 
+export const earthPastelDark = {
+  bg: "#161513",
+  border: "#8b7f6a33",
+  text: "#d7cbb7",
+  text2: "#e8decf",
+  accent: "#7ab882",
+  highlight: "#c7ad86",
+  pink: "rgb(255, 175, 204, 1)",
+  hover: "rgb(255, 175, 204, 1)",
+};
+
+export const getPalette = () =>
+  typeof document !== "undefined" && document.documentElement.classList.contains("dark")
+    ? earthPastelDark
+    : earthPastel;
+
 

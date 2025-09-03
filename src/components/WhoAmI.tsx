@@ -1,5 +1,5 @@
 import React from "react";
-import { earthPastel } from "../theme/palette";
+import { getPalette } from "../theme/palette";
 import profilePhoto from "/src/assets/profile-photo.jpeg";
 import SocialMedia from "./SocialMedia";
 import Projects from "./Projects";
@@ -7,10 +7,11 @@ import Conferences from "./Conferences";
 
 
 const WhoAmI: React.FC<{}> = () => {
+  const earthPastel = getPalette();
   return (
     <>
       <div
-        className="mt-20 mb-10 max-w-4xl mx-auto text-center"
+        className="mb-10 max-w-4xl mx-auto text-center"
         style={{
           background: earthPastel.bg,
         }}
@@ -36,7 +37,7 @@ const WhoAmI: React.FC<{}> = () => {
         </div>
         <div className="flex flex-col items-center">
           
-          <div className="w-3/4 items-center mt-2">
+          <div className="w-3/4 items-center mt-6">
             <p
               className="text-center text-md px-2 py-1 rounded-md"
               style={{

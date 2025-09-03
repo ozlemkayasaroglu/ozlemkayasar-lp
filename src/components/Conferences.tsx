@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { earthPastel } from "../theme/palette";
+import { getPalette } from "../theme/palette";
 import nitelik1 from "../assets/nitelik-noktasi-1.jpeg";
 import nitelik2 from "../assets/nitelik-noktasi-2.jpeg";
 import react1 from "../assets/react-konf-1.jpeg";
@@ -34,6 +34,7 @@ const conferences = [
 ];
 
 const Conferences: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
+  const earthPastel = getPalette();
   const [modalImg, setModalImg] = useState<string | null>(null);
 
   return (
@@ -114,7 +115,7 @@ const Conferences: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
                 <span className="font-semibold">Yer:</span> {event.location}
               </p>
               {event.images && (
-                <div className="flex gap-4 mt-4">
+                <div className="flex gap-4 mt-4 items-center justify-center">
                   {event.images.map((img, i) => (
                     <img
                       key={i}

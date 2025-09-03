@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ozlemkayasaroglu.dev/sitemap.xml
+
+
+
